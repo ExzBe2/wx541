@@ -1,0 +1,61 @@
+<!--about.wxml-->
+<view class="container">
+  <view class="card">
+    <view class="about-header">
+      <text class="app-name">图片工具</text>
+      <text class="app-version">版本 {{version}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">功能说明</text>
+    <view class="feature-list">
+      <view class="feature-item">
+        <text class="feature-icon">📷</text>
+        <text class="feature-text">图片压缩 - 无损压缩图片大小</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">📐</text>
+        <text class="feature-text">尺寸调整 - 自定义图片尺寸</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">🔄</text>
+        <text class="feature-text">格式转换 - JPEG/PNG/WEBP互转</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">✏️</text>
+        <text class="feature-text">水印添加 - 添加自定义水印</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">✂️</text>
+        <text class="feature-text">图片裁剪 - 裁剪任意区域</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">🎨</text>
+        <text class="feature-text">滤镜效果 - 多种滤镜风格</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">使用条款</text>
+    <view class="terms-content">
+      <text class="terms-text">1. 本工具所有功能均在本地完成，不会上传您的图片到服务器</text>
+      <text class="terms-text">2. 您对上传的图片拥有完全的所有权和控制权</text>
+      <text class="terms-text">3. 本工具仅提供图片处理功能，不承担任何因使用本工具产生的法律责任</text>
+      <text class="terms-text">4. 使用本工具即表示您同意以上条款</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">联系我们</text>
+    <view class="contact-info">
+      <text class="contact-text">如有问题或建议，请通过以下方式联系我们：</text>
+      <text class="contact-email">support@example.com</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="copyright">© 2024 图片工具 | 轻量高效，即用即走</text>
+  </view>
+</view>

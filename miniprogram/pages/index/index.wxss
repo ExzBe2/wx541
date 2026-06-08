@@ -1,0 +1,132 @@
+.container {
+  padding: 40rpx 30rpx;
+  padding-bottom: calc(120rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+
+.title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.tool-item {
+  width: calc(33.33% - 16rpx);
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tool-item.unavailable {
+  opacity: 0.6;
+}
+
+.tool-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 24rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16rpx;
+  position: relative;
+}
+
+.icon-text {
+  font-size: 48rpx;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  border-radius: 16rpx;
+  padding: 4rpx 12rpx;
+}
+
+.badge-text {
+  font-size: 18rpx;
+  color: #ffffff;
+}
+
+.tool-name {
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.tool-status {
+  font-size: 20rpx;
+  color: #ff9800;
+  margin-top: 4rpx;
+}
+
+.banner-ad {
+  background: #ffffff;
+  border-radius: 16rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.ad-placeholder {
+  height: 120rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+.ad-text {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.footer {
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.copyright {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+@media (prefers-color-scheme: dark) {
+  .title {
+    color: #ffffff;
+  }
+  
+  .tool-name {
+    color: #e0e0e0;
+  }
+  
+  .banner-ad {
+    background: #2d2d2d;
+    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.3);
+  }
+  
+  .ad-placeholder {
+    background: linear-gradient(135deg, #3d3d3d 0%, #2d2d2d 100%);
+  }
+}

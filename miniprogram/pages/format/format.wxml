@@ -1,0 +1,61 @@
+<!--format.wxml-->
+<view class="container">
+  <view class="card">
+    <view class="tool-header">
+      <text class="tool-icon">🔄</text>
+      <text class="tool-title">格式转换</text>
+    </view>
+
+    <view class="upload-area" bindtap="chooseImage">
+      <view wx:if="{{!originalImage}}" class="upload-placeholder">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">点击选择图片</text>
+      </view>
+      <image wx:else class="preview-image" src="{{originalImage}}" mode="widthFix" />
+    </view>
+
+    <view class="options-card">
+      <text class="option-title">目标格式</text>
+      <view class="format-options">
+        <view class="format-option {{selectedFormat == 'jpeg' ? 'active' : ''}}" bindtap="selectFormat" data-format="jpeg">
+          <text class="format-icon">🖼️</text>
+          <text class="format-name">JPEG</text>
+          <text class="format-desc">压缩格式</text>
+        </view>
+        <view class="format-option {{selectedFormat == 'png' ? 'active' : ''}}" bindtap="selectFormat" data-format="png">
+          <text class="format-icon">📊</text>
+          <text class="format-name">PNG</text>
+          <text class="format-desc">透明背景</text>
+        </view>
+        <view class="format-option {{selectedFormat == 'webp' ? 'active' : ''}}" bindtap="selectFormat" data-format="webp">
+          <text class="format-icon">🌐</text>
+          <text class="format-name">WebP</text>
+          <text class="format-desc">现代格式</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="originalImage" class="action-area">
+      <view class="btn-primary action-btn" bindtap="convertFormat">
+        <text class="btn-text">转换格式</text>
+      </view>
+    </view>
+
+    <view wx:if="processedImage" class="result-area">
+      <text class="result-title">转换结果</text>
+      <image class="result-image" src="{{processedImage}}" mode="widthFix" />
+      <view class="result-info">
+        <text class="info-text">原格式: {{originalFormat}}</text>
+        <text class="info-text">新格式: {{selectedFormat.toUpperCase()}}</text>
+      </view>
+      <view class="result-actions">
+        <view class="btn-secondary" bindtap="saveImage">
+          <text class="btn-text">保存图片</text>
+        </view>
+        <view class="btn-secondary" bindtap="reset">
+          <text class="btn-text">重新转换</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

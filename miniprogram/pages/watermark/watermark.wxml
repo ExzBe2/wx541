@@ -1,0 +1,71 @@
+<!--watermark.wxml-->
+<view class="container">
+  <view class="card">
+    <view class="tool-header">
+      <text class="tool-icon">✏️</text>
+      <text class="tool-title">水印添加</text>
+    </view>
+
+    <view class="upload-area" bindtap="chooseImage">
+      <view wx:if="{{!originalImage}}" class="upload-placeholder">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">点击选择图片</text>
+      </view>
+      <image wx:else class="preview-image" src="{{originalImage}}" mode="widthFix" />
+    </view>
+
+    <view class="options-card">
+      <text class="option-title">水印文字</text>
+      <input class="watermark-input" type="text" value="{{watermarkText}}" placeholder="请输入水印文字" bindinput="onWatermarkInput" />
+      
+      <view class="watermark-options">
+        <view class="option-item">
+          <text class="option-label">字体大小</text>
+          <slider class="size-slider" value="{{fontSize}}" min="12" max="48" step="2" bindchange="onFontSizeChange" />
+          <text class="option-value">{{fontSize}}px</text>
+        </view>
+        
+        <view class="option-item">
+          <text class="option-label">透明度</text>
+          <slider class="size-slider" value="{{opacity}}" min="30" max="100" step="5" bindchange="onOpacityChange" />
+          <text class="option-value">{{opacity}}%</text>
+        </view>
+      </view>
+
+      <view class="position-options">
+        <text class="option-title">位置</text>
+        <view class="position-grid">
+          <view class="position-btn {{position == 'top-left' ? 'active' : ''}}" bindtap="setPosition" data-pos="top-left">左上</view>
+          <view class="position-btn {{position == 'top-center' ? 'active' : ''}}" bindtap="setPosition" data-pos="top-center">上中</view>
+          <view class="position-btn {{position == 'top-right' ? 'active' : ''}}" bindtap="setPosition" data-pos="top-right">右上</view>
+          <view class="position-btn {{position == 'center' ? 'active' : ''}}" bindtap="setPosition" data-pos="center">居中</view>
+          <view class="position-btn {{position == 'bottom-left' ? 'active' : ''}}" bindtap="setPosition" data-pos="bottom-left">左下</view>
+          <view class="position-btn {{position == 'bottom-center' ? 'active' : ''}}" bindtap="setPosition" data-pos="bottom-center">下中</view>
+          <view class="position-btn {{position == 'bottom-right' ? 'active' : ''}}" bindtap="setPosition" data-pos="bottom-right">右下</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="originalImage" class="action-area">
+      <view class="btn-primary action-btn" bindtap="addWatermark">
+        <text class="btn-text">添加水印</text>
+      </view>
+    </view>
+
+    <view wx:if="processedImage" class="result-area">
+      <text class="result-title">添加结果</text>
+      <image class="result-image" src="{{processedImage}}" mode="widthFix" />
+      <view class="result-info">
+        <text class="info-text">水印: {{watermarkText || '无'}}</text>
+      </view>
+      <view class="result-actions">
+        <view class="btn-secondary" bindtap="saveImage">
+          <text class="btn-text">保存图片</text>
+        </view>
+        <view class="btn-secondary" bindtap="reset">
+          <text class="btn-text">重新添加</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

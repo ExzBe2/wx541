@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">图片工具</text>
+    <text class="subtitle">轻量高效，即用即走</text>
+  </view>
+
+  <view class="tools-grid">
+    <view class="tool-item {{item.available ? '' : 'unavailable'}}" wx:for="{{tools}}" wx:key="id" bindtap="goToTool" data-tool="{{item.id}}">
+      <view class="tool-icon" style="background: {{item.color}}">
+        <text class="icon-text">{{item.icon}}</text>
+        <view wx:if="{{!item.available}}" class="coming-soon-badge">
+          <text class="badge-text">开发中</text>
+        </view>
+      </view>
+      <text class="tool-name">{{item.name}}</text>
+      <text wx:if="{{!item.available}}" class="tool-status">敬请期待</text>
+    </view>
+  </view>
+
+  <view class="banner-ad">
+    <view class="ad-placeholder">
+      <text class="ad-text">广告位</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="copyright">© 2024 图片工具 | 版本 {{version}}</text>
+  </view>
+</view>
