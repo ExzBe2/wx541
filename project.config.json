@@ -46,8 +46,10 @@
   },
   "appid": "wx52aef8d56a3fd5bd",
   "projectname": "quickstart-wx-cloud",
-  "libVersion": "2.20.1",
+  "libVersion": "3.16.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "envVersion": "develop",
+  "envId": "cloud1-d1gbl1b1e84373304",
   "condition": {
     "search": {
       "list": []
@@ -62,13 +64,7 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide"
-        }
-      ]
+      "list": []
     }
   },
   "compileType": "miniprogram",

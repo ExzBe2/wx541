@@ -119,6 +119,7 @@
 .action-btn {
   width: 100%;
   padding: 28rpx;
+  box-sizing: border-box;
 }
 
 .btn-text {

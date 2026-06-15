@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/list/list",
+    "pages/add/add",
     "pages/compress/compress",
     "pages/resize/resize",
     "pages/format/format",
@@ -10,7 +12,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "图片工具",
+    "navigationBarTitleText": "实用工具",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#f5f5f5",
     "enablePullDownRefresh": false
@@ -26,6 +28,12 @@
         "text": "工具",
         "iconPath": "images/icons/home.png",
         "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "记录",
+        "iconPath": "images/icons/examples.png",
+        "selectedIconPath": "images/icons/examples-active.png"
       },
       {
         "pagePath": "pages/about/about",

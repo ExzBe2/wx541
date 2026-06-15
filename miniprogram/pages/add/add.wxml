@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <text class="label">标题</text>
+      <input 
+        class="input" 
+        placeholder="请输入标题" 
+        value="{{title}}" 
+        bindinput="onTitleInput"
+        maxlength="50"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="label">分类</text>
+      <radio-group class="radio-group" bindchange="onCategoryChange">
+        <label class="radio-item" wx:for="{{categories}}" wx:key="value">
+          <radio value="{{item.value}}" checked="{{category === item.value}}" />
+          <text>{{item.name}}</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <view class="form-item">
+      <text class="label">内容</text>
+      <textarea 
+        class="textarea" 
+        placeholder="请输入内容" 
+        value="{{content}}" 
+        bindinput="onContentInput"
+        maxlength="500"
+        auto-height
+      />
+    </view>
+
+    <view class="button-group">
+      <button class="btn btn-primary" bindtap="onSubmit" disabled="{{submitting}}">
+        {{submitting ? '提交中...' : '提交'}}
+      </button>
+      <button class="btn btn-default" bindtap="onReset">重置</button>
+    </view>
+  </view>
+</view>
