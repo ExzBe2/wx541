@@ -1,4 +1,3 @@
-<!--compress.wxml-->
 <view class="container">
   <view class="card">
     <view class="tool-header">
@@ -44,11 +43,18 @@
       </view>
       <view class="result-actions">
         <view class="btn-secondary" bindtap="saveImage">
-          <text class="btn-text">保存图片</text>
+          <text class="btn-text">保存到相册</text>
+        </view>
+        <view class="btn-cloud" bindtap="saveToCloud">
+          <text class="btn-text">{{savingToCloud ? '上传中...' : '保存到云存储'}}</text>
         </view>
         <view class="btn-secondary" bindtap="reset">
           <text class="btn-text">重新压缩</text>
         </view>
+      </view>
+      <view wx:if="cloudFileID" class="cloud-success">
+        <text class="cloud-icon">☁️</text>
+        <text class="cloud-text">已保存到云存储，可在「我的」页面查看</text>
       </view>
     </view>
   </view>

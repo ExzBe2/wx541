@@ -1,0 +1,95 @@
+<view class="container">
+  <view class="user-card">
+    <view class="avatar-area">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" wx:if="{{userInfo && userInfo.avatarUrl}}" />
+      <view class="avatar-placeholder" wx:else>
+        <text class="placeholder-icon">👤</text>
+      </view>
+    </view>
+    
+    <view class="user-info">
+      <text class="user-name">{{userInfo && userInfo.nickName ? userInfo.nickName : '用户'}}</text>
+      <text class="user-desc">{{userInfo && userInfo.avatarUrl ? '欢迎使用图片工具' : '点击下方按钮设置资料'}}</text>
+    </view>
+  </view>
+
+  <view class="action-section">
+    <button class="auth-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <text class="auth-icon">📷</text>
+      <text class="auth-text">选择头像</text>
+    </button>
+    <button class="auth-btn" bindtap="showNameSheet">
+      <text class="auth-icon">✏️</text>
+      <text class="auth-text">设置昵称</text>
+    </button>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-value">{{imageCount}}</text>
+      <text class="stat-label">处理图片</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-value">{{typeCount.compress || 0}}</text>
+      <text class="stat-label">压缩</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-value">{{typeCount.resize || 0}}</text>
+      <text class="stat-label">调整</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-header">
+      <text class="card-title">我的图片</text>
+    </view>
+    
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:elif="{{isImagesEmpty}}" class="empty">
+      <text class="empty-icon">📷</text>
+      <text class="empty-text">暂无处理记录</text>
+      <text class="empty-hint">使用图片工具后自动保存记录</text>
+    </view>
+    
+    <view wx:else class="image-list">
+      <view class="image-item" wx:for="{{images}}" wx:key="_id">
+        <image class="image-preview" src="{{item.imageUrl}}" mode="widthFix" />
+        <view class="image-info">
+          <text class="image-tool">{{getToolName(item.toolType)}}</text>
+          <text class="image-date">{{formatDate(item.createTime)}}</text>
+        </view>
+        <view class="image-actions">
+          <text class="action-btn" bindtap="saveImage" data-fileid="{{item.cloudFileID}}">保存</text>
+          <text class="action-btn delete" bindtap="onDeleteImage" data-id="{{item._id}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="menu-item" bindtap="goToSettings">
+      <text class="menu-icon">⚙️</text>
+      <text class="menu-text">设置</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToAddRecord">
+      <text class="menu-icon">📝</text>
+      <text class="menu-text">添加记录</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToAbout">
+      <text class="menu-icon">ℹ️</text>
+      <text class="menu-text">关于</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="copyright">© 2024 图片工具</text>
+  </view>
+</view>

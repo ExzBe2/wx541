@@ -8,7 +8,9 @@ Page({
       { id: 'watermark', name: '水印添加', icon: '✏️', color: 'linear-gradient(135deg, #ea4335 0%, #d93026 100%)', available: true },
       { id: 'crop', name: '图片裁剪', icon: '✂️', color: 'linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%)', available: false },
       { id: 'filter', name: '滤镜效果', icon: '🎨', color: 'linear-gradient(135deg, #00bcd4 0%, #0097a7 100%)', available: false }
-    ]
+    ],
+    userInfo: null,
+    loading: true
   },
 
   onLoad: function () {
@@ -16,6 +18,30 @@ Page({
     this.setData({
       version: app.globalData.version
     })
+    this.loadUserInfo()
+  },
+
+  onShow: function() {
+    this.loadUserInfo()
+  },
+
+  loadUserInfo: function() {
+    const app = getApp()
+    const userInfo = app.getUserInfo()
+    
+    if (userInfo) {
+      this.setData({
+        userInfo: userInfo,
+        loading: false
+      })
+    } else {
+      app.onCloudReady(() => {
+        this.setData({
+          userInfo: app.getUserInfo(),
+          loading: false
+        })
+      })
+    }
   },
 
   goToTool: function (e) {
@@ -28,6 +54,22 @@ Page({
       })
     } else {
       wx.showToast({ title: '功能开发中', icon: 'none' })
+    }
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '图片工具 - 轻量高效的图片处理小程序',
+      path: '/pages/index/index',
+      imageUrl: ''
+    }
+  },
+
+  onShareTimeline: function () {
+    return {
+      title: '图片工具 - 轻量高效的图片处理小程序',
+      query: '',
+      imageUrl: ''
     }
   }
 })

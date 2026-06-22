@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="card">
+    <view class="section-title">显示设置</view>
+    <view class="setting-item">
+      <view class="setting-label">
+        <text class="setting-icon">🎨</text>
+        <text class="setting-text">主题模式</text>
+      </view>
+      <switch class="setting-switch" checked="{{theme === 'dark'}}" bindchange="onThemeChange" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">存储管理</view>
+    <view class="setting-item" bindtap="clearCache">
+      <view class="setting-label">
+        <text class="setting-icon">🗑️</text>
+        <text class="setting-text">清除缓存</text>
+      </view>
+      <view class="setting-value">
+        <text class="cache-size">{{cacheSize}}</text>
+        <text class="setting-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">关于</view>
+    <view class="setting-item" bindtap="goToAbout">
+      <view class="setting-label">
+        <text class="setting-icon">ℹ️</text>
+        <text class="setting-text">关于我们</text>
+      </view>
+      <text class="setting-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="version-info">
+    <text class="version-text">版本 {{version}}</text>
+    <text class="copyright">© 2024 图片工具</text>
+  </view>
+</view>

@@ -7,12 +7,14 @@
     "pages/resize/resize",
     "pages/format/format",
     "pages/watermark/watermark",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/my/my",
+    "pages/settings/settings"
   ],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "实用工具",
+    "navigationBarTitleText": "图片工具",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#f5f5f5",
     "enablePullDownRefresh": false
@@ -36,8 +38,8 @@
         "selectedIconPath": "images/icons/examples-active.png"
       },
       {
-        "pagePath": "pages/about/about",
-        "text": "关于",
+        "pagePath": "pages/my/my",
+        "text": "我的",
         "iconPath": "images/icons/usercenter.png",
         "selectedIconPath": "images/icons/usercenter-active.png"
       }

@@ -7,19 +7,28 @@ Page({
     watermarkText: '',
     fontSize: 24,
     opacity: 80,
-    position: 'center'
+    position: 'center',
+    savingToCloud: false,
+    cloudFileID: ''
   },
 
   chooseImage: function () {
+    wx.showLoading({ title: '选择图片...' })
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
+        wx.hideLoading()
         this.setData({
           originalImage: res.tempFilePaths[0],
-          processedImage: ''
+          processedImage: '',
+          cloudFileID: ''
         })
+      },
+      fail: () => {
+        wx.hideLoading()
+        wx.showToast({ title: '选择图片失败', icon: 'none' })
       }
     })
   },
@@ -98,7 +107,7 @@ Page({
             },
             fail: () => {
               wx.hideLoading()
-              wx.showToast({ title: '添加失败', icon: 'none' })
+              wx.showToast({ title: '添加失败，请重试', icon: 'none' })
             }
           })
         })
@@ -114,7 +123,57 @@ Page({
     wx.saveImageToPhotosAlbum({
       filePath: this.data.processedImage,
       success: () => wx.showToast({ title: '保存成功', icon: 'success' }),
-      fail: () => wx.showToast({ title: '保存失败', icon: 'none' })
+      fail: () => wx.showToast({ title: '保存失败，请检查相册权限', icon: 'none' })
+    })
+  },
+
+  saveToCloud: function () {
+    if (!this.data.processedImage) {
+      wx.showToast({ title: '请先添加水印', icon: 'none' })
+      return
+    }
+
+    this.setData({ savingToCloud: true })
+    wx.showLoading({ title: '上传云存储...' })
+
+    wx.getFileSystemManager().readFile({
+      filePath: this.data.processedImage,
+      encoding: 'base64',
+      success: (res) => {
+        const fileName = `watermark/${Date.now()}.jpg`
+        wx.cloud.callFunction({
+          name: 'quickstartFunctions',
+          data: {
+            type: 'uploadImage',
+            data: {
+              fileContent: res.data,
+              cloudPath: fileName,
+              toolType: 'watermark'
+            }
+          },
+          success: (result) => {
+            wx.hideLoading()
+            this.setData({ savingToCloud: false })
+            if (result.result && result.result.success) {
+              this.setData({ cloudFileID: result.result.fileID })
+              wx.showToast({ title: '上传成功', icon: 'success' })
+            } else {
+              wx.showToast({ title: '上传失败', icon: 'none' })
+            }
+          },
+          fail: (err) => {
+            wx.hideLoading()
+            this.setData({ savingToCloud: false })
+            console.error('上传云存储失败:', err)
+            wx.showToast({ title: '上传失败，请重试', icon: 'none' })
+          }
+        })
+      },
+      fail: (err) => {
+        wx.hideLoading()
+        this.setData({ savingToCloud: false })
+        wx.showToast({ title: '读取文件失败', icon: 'none' })
+      }
     })
   },
 
@@ -125,7 +184,21 @@ Page({
       watermarkText: '',
       fontSize: 24,
       opacity: 80,
-      position: 'center'
+      position: 'center',
+      cloudFileID: ''
     })
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '图片工具 - 水印添加功能',
+      path: '/pages/index/index'
+    }
+  },
+
+  onShareTimeline: function () {
+    return {
+      title: '图片工具 - 水印添加功能'
+    }
   }
 })

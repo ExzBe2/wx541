@@ -145,6 +145,40 @@
   color: #666666;
 }
 
+.btn-cloud {
+  flex: 1;
+  height: 80rpx;
+  background: linear-gradient(135deg, #34a853 0%, #1e8e3e 100%);
+  border-radius: 12rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16rpx;
+}
+
+.btn-cloud .btn-text {
+  color: #ffffff;
+}
+
+.cloud-success {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #e8f5e9;
+  border-radius: 12rpx;
+  margin-top: 20rpx;
+}
+
+.cloud-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.cloud-text {
+  font-size: 26rpx;
+  color: #34a853;
+}
+
 .result-area {
   margin-top: 30rpx;
   padding-top: 30rpx;
