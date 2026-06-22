@@ -23,15 +23,14 @@ const imageUtils = {
               const img = canvas.createImage()
               img.onload = () => {
                 ctx.drawImage(img, 0, 0, info.width, info.height)
-                try {
-                  const tempFilePath = canvas.toTempFilePathSync({
-                    quality: quality / 100,
-                    fileType: 'jpg'
-                  })
-                  resolve(tempFilePath)
-                } catch (err) {
-                  reject(err)
-                }
+                wx.canvasToTempFilePath({
+                  canvas: canvas,
+                  quality: quality / 100,
+                  success: (tempRes) => {
+                    resolve(tempRes.tempFilePath)
+                  },
+                  fail: reject
+                })
               }
               img.onerror = reject
               img.src = src
@@ -69,18 +68,17 @@ const imageUtils = {
               const img = canvas.createImage()
               img.onload = () => {
                 ctx.drawImage(img, 0, 0, targetWidth, targetHeight)
-                try {
-                  const tempFilePath = canvas.toTempFilePathSync({
-                    width: targetWidth,
-                    height: targetHeight,
-                    destWidth: targetWidth,
-                    destHeight: targetHeight,
-                    fileType: 'jpg'
-                  })
-                  resolve(tempFilePath)
-                } catch (err) {
-                  reject(err)
-                }
+                wx.canvasToTempFilePath({
+                  canvas: canvas,
+                  width: targetWidth,
+                  height: targetHeight,
+                  destWidth: targetWidth,
+                  destHeight: targetHeight,
+                  success: (tempRes) => {
+                    resolve(tempRes.tempFilePath)
+                  },
+                  fail: reject
+                })
               }
               img.onerror = reject
               img.src = src
@@ -115,15 +113,15 @@ const imageUtils = {
               const img = canvas.createImage()
               img.onload = () => {
                 ctx.drawImage(img, 0, 0, info.width, info.height)
-                try {
-                  const tempFilePath = canvas.toTempFilePathSync({
-                    fileType: format,
-                    quality: 0.9
-                  })
-                  resolve(tempFilePath)
-                } catch (err) {
-                  reject(err)
-                }
+                wx.canvasToTempFilePath({
+                  canvas: canvas,
+                  fileType: format,
+                  quality: 0.9,
+                  success: (tempRes) => {
+                    resolve(tempRes.tempFilePath)
+                  },
+                  fail: reject
+                })
               }
               img.onerror = reject
               img.src = src
@@ -197,18 +195,17 @@ const imageUtils = {
                 
                 ctx.fillText(text, pos.x, pos.y)
                 
-                try {
-                  const tempFilePath = canvas.toTempFilePathSync({
-                    width: info.width,
-                    height: info.height,
-                    destWidth: info.width,
-                    destHeight: info.height,
-                    fileType: 'jpg'
-                  })
-                  resolve(tempFilePath)
-                } catch (err) {
-                  reject(err)
-                }
+                wx.canvasToTempFilePath({
+                  canvas: canvas,
+                  width: info.width,
+                  height: info.height,
+                  destWidth: info.width,
+                  destHeight: info.height,
+                  success: (tempRes) => {
+                    resolve(tempRes.tempFilePath)
+                  },
+                  fail: reject
+                })
               }
               img.onerror = reject
               img.src = src

@@ -4,6 +4,16 @@
   padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
+.hidden-canvas {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  left: -1000rpx;
+  top: -1000rpx;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .card {
   background: #ffffff;
   border-radius: 16rpx;
