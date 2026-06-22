@@ -44,7 +44,7 @@ Page({
 
   convertFormat: function () {
     wx.showLoading({ title: '转换中...' })
-    imageUtils.convertFormat(this.data.originalImage, this.data.selectedFormat)
+    imageUtils.convertFormat(this, this.data.originalImage, this.data.selectedFormat)
       .then((result) => {
         wx.hideLoading()
         this.setData({ processedImage: result })

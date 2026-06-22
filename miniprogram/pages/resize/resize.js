@@ -100,7 +100,7 @@ Page({
     }
     
     wx.showLoading({ title: '调整中...' })
-    imageUtils.resizeImage(this.data.originalImage, width, height)
+    imageUtils.resizeImage(this, this.data.originalImage, width, height)
       .then((result) => {
         wx.hideLoading()
         this.setData({ processedImage: result })

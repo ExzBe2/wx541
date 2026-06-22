@@ -1,5 +1,3 @@
-const imageUtils = require('../../utils/imageUtils.js')
-
 Page({
   data: {
     originalImage: '',
@@ -54,66 +52,88 @@ Page({
       wx.showToast({ title: '请输入水印文字', icon: 'none' })
       return
     }
-    
+
+    if (!this.data.originalImage) {
+      wx.showToast({ title: '请先选择图片', icon: 'none' })
+      return
+    }
+
     wx.showLoading({ title: '添加中...' })
-    
+
     wx.getImageInfo({
       src: this.data.originalImage,
       success: (info) => {
-        const ctx = wx.createCanvasContext('watermarkCanvas')
-        ctx.drawImage(this.data.originalImage, 0, 0, info.width, info.height)
-        
-        const posMap = {
-          'top-left': { x: info.width * 0.1, y: info.height * 0.1 },
-          'top-center': { x: info.width * 0.5, y: info.height * 0.1 },
-          'top-right': { x: info.width * 0.9, y: info.height * 0.1 },
-          'center': { x: info.width * 0.5, y: info.height * 0.5 },
-          'bottom-left': { x: info.width * 0.1, y: info.height * 0.9 },
-          'bottom-center': { x: info.width * 0.5, y: info.height * 0.9 },
-          'bottom-right': { x: info.width * 0.9, y: info.height * 0.9 }
-        }
-        
-        const pos = posMap[this.data.position]
-        ctx.setFillStyle(`rgba(255, 255, 255, ${this.data.opacity / 100})`)
-        ctx.setFontSize(this.data.fontSize)
-        
-        if (this.data.position.includes('center')) {
-          ctx.setTextAlign('center')
-        } else if (this.data.position.includes('right')) {
-          ctx.setTextAlign('right')
-        } else {
-          ctx.setTextAlign('left')
-        }
-        
-        if (this.data.position.includes('center')) {
-          ctx.setTextBaseline('middle')
-        } else if (this.data.position.includes('bottom')) {
-          ctx.setTextBaseline('bottom')
-        } else {
-          ctx.setTextBaseline('top')
-        }
-        
-        ctx.fillText(this.data.watermarkText, pos.x, pos.y)
-        
-        ctx.draw(false, () => {
-          wx.canvasToTempFilePath({
-            width: info.width,
-            height: info.height,
-            destWidth: info.width,
-            destHeight: info.height,
-            success: (res) => {
-              wx.hideLoading()
-              this.setData({ processedImage: res.tempFilePath })
-            },
-            fail: () => {
-              wx.hideLoading()
-              wx.showToast({ title: '添加失败，请重试', icon: 'none' })
-            }
-          })
+        const offscreenCanvas = wx.createOffscreenCanvas({
+          type: '2d',
+          width: info.width,
+          height: info.height
         })
+        const ctx = offscreenCanvas.getContext('2d')
+
+        const img = offscreenCanvas.createImage()
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, info.width, info.height)
+
+          ctx.setFillStyle(`rgba(255, 255, 255, ${this.data.opacity / 100})`)
+          ctx.setFontSize(this.data.fontSize || 24)
+
+          const posMap = {
+            'top-left': { x: info.width * 0.1, y: info.height * 0.1 },
+            'top-center': { x: info.width * 0.5, y: info.height * 0.1 },
+            'top-right': { x: info.width * 0.9, y: info.height * 0.1 },
+            'center': { x: info.width * 0.5, y: info.height * 0.5 },
+            'bottom-left': { x: info.width * 0.1, y: info.height * 0.9 },
+            'bottom-center': { x: info.width * 0.5, y: info.height * 0.9 },
+            'bottom-right': { x: info.width * 0.9, y: info.height * 0.9 }
+          }
+
+          const pos = posMap[this.data.position] || { x: info.width / 2, y: info.height / 2 }
+
+          if (this.data.position.includes('center')) {
+            ctx.setTextAlign('center')
+          } else if (this.data.position.includes('right')) {
+            ctx.setTextAlign('right')
+          } else {
+            ctx.setTextAlign('left')
+          }
+
+          if (this.data.position.includes('center')) {
+            ctx.setTextBaseline('middle')
+          } else if (this.data.position.includes('bottom')) {
+            ctx.setTextBaseline('bottom')
+          } else {
+            ctx.setTextBaseline('top')
+          }
+
+          ctx.fillText(this.data.watermarkText, pos.x, pos.y)
+
+          try {
+            const tempFilePath = offscreenCanvas.toTempFilePathSync({
+              width: info.width,
+              height: info.height,
+              destWidth: info.width,
+              destHeight: info.height,
+              fileType: 'jpg',
+              quality: 0.9
+            })
+            wx.hideLoading()
+            this.setData({ processedImage: tempFilePath })
+          } catch (err) {
+            wx.hideLoading()
+            console.error('生成图片失败:', err)
+            wx.showToast({ title: '生成图片失败', icon: 'none' })
+          }
+        }
+        img.onerror = (err) => {
+          wx.hideLoading()
+          console.error('图片加载失败:', err)
+          wx.showToast({ title: '图片加载失败', icon: 'none' })
+        }
+        img.src = this.data.originalImage
       },
-      fail: () => {
+      fail: (err) => {
         wx.hideLoading()
+        console.error('获取图片信息失败:', err)
         wx.showToast({ title: '获取图片信息失败', icon: 'none' })
       }
     })

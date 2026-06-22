@@ -79,7 +79,7 @@ Page({
     }
 
     wx.showLoading({ title: '压缩中...' })
-    imageUtils.compressImage(this.data.originalImage, this.data.quality)
+    imageUtils.compressImage(this, this.data.originalImage, this.data.quality)
       .then((result) => {
         wx.hideLoading()
         this.setData({ processedImage: result })

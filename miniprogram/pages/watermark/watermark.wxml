@@ -1,4 +1,3 @@
-<!--watermark.wxml-->
 <view class="container">
   <view class="card">
     <view class="tool-header">

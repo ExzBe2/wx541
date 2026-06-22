@@ -1,4 +1,6 @@
 <view class="container">
+  <canvas type="2d" id="imageCanvas" class="hidden-canvas"></canvas>
+  
   <view class="card">
     <view class="tool-header">
       <text class="tool-icon">📷</text>
